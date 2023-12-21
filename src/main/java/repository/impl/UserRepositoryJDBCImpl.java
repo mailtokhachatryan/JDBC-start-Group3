@@ -2,7 +2,6 @@ package repository.impl;
 
 import model.User;
 import repository.UserRepository;
-import util.DataSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class UserRepositoryJDBCImpl implements UserRepository {
 
-    private final Connection connection ;
+    private final Connection connection;
 
     public UserRepositoryJDBCImpl(Connection connection) {
         this.connection = connection;
@@ -22,6 +21,8 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                     CREATE TABLE IF NOT EXISTS users(
                         id serial primary key,
                         name varchar not null ,
+                        email varchar not null unique ,
+                        password varchar not null ,
                         lastname varchar not null ,
                         age integer not null,
                         balance integer default 0
@@ -35,7 +36,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     @Override
     public void create(User user) {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(String.format("INSERT INTO users(name, lastname, age) VALUES ('%s','%s',%d)", user.getName(), user.getLastname(), user.getAge()));
+            statement.executeUpdate(String.format("INSERT INTO users(name, email, password, lastname, age) VALUES ('%s','%s','%s','%s',%d)", user.getName(), user.getEmail(), user.getPassword(), user.getLastname(), user.getAge()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -45,7 +46,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     public void update(User user) {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(
-                    String.format("UPDATE users SET name = '%s', lastname = '%s', age = %d, balance = %d WHERE id = %d", user.getName(), user.getLastname(), user.getAge(), user.getBalance(), user.getId())
+                    String.format("UPDATE users SET name = '%s', email = '%s', password = '%s', lastname = '%s', age = %d, balance = %d WHERE id = %d", user.getName(),user.getEmail(), user.getPassword(), user.getLastname(), user.getAge(), user.getBalance(), user.getId())
             );
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -55,8 +56,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     @Override
     public void delete(int id) {
         try (Statement statement = connection.createStatement()) {
-            int i = statement.executeUpdate(String.format("DELETE FROM users WHERE id = %d", id));
-            System.out.println(i);
+            statement.executeUpdate(String.format("DELETE FROM users WHERE id = %d", id));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -94,6 +94,8 @@ public class UserRepositoryJDBCImpl implements UserRepository {
         User user = new User();
         user.setId(resultSet.getInt("id"));
         user.setName(resultSet.getString("name"));
+        user.setEmail(resultSet.getString("email"));
+        user.setPassword(resultSet.getString("password"));
         user.setLastname(resultSet.getString("lastname"));
         user.setAge(resultSet.getInt("age"));
         user.setBalance(resultSet.getInt("balance"));

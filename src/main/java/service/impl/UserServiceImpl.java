@@ -1,5 +1,6 @@
 package service.impl;
 
+import exception.ValidationException;
 import model.User;
 import repository.UserRepository;
 import service.UserService;
@@ -17,8 +18,9 @@ public class UserServiceImpl implements UserService {
         this.connection = connection;
     }
 
+    @Override
     public void register(User user) {
-        validate(user);
+        validate(user.getEmail(), user.getPassword());
 
         userRepository.create(user);
     }
@@ -43,9 +45,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private void validate(User user) {
-        //TODO: validate username and password
+    private void validate(String email, String password) {
+        if (email == null || !email.matches("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*"
+                + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+            throw new ValidationException("Email not valid");
 
+        if (password == null || password.length() < 8)
+            throw new ValidationException("Password must be more than 8 symbols");
     }
 
 }
