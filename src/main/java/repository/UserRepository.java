@@ -16,4 +16,5 @@ public interface UserRepository {
 
     User getById(int userId);
 
+    User getByEmail(String email);
 }

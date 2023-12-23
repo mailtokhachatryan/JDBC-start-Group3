@@ -1,5 +1,6 @@
 package service.impl;
 
+import exception.UserAlreadyExistsException;
 import exception.ValidationException;
 import model.User;
 import repository.UserRepository;
@@ -19,9 +20,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void login(String email, String password) {
+        validate(email, password);
+        User user = userRepository.getByEmail(email);
+        if (user != null && password.equals(user.getPassword()))
+            System.out.println("login successfully completed");
+        else
+            throw new ValidationException("Email or Password not valid");
+    }
+
+    @Override
     public void register(User user) {
         validate(user.getEmail(), user.getPassword());
-
+        User byEmail = userRepository.getByEmail(user.getEmail());
+        if (byEmail != null)
+            throw new UserAlreadyExistsException();
         userRepository.create(user);
     }
 

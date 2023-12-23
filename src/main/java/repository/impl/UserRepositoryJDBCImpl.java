@@ -46,7 +46,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     public void update(User user) {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(
-                    String.format("UPDATE users SET name = '%s', email = '%s', password = '%s', lastname = '%s', age = %d, balance = %d WHERE id = %d", user.getName(),user.getEmail(), user.getPassword(), user.getLastname(), user.getAge(), user.getBalance(), user.getId())
+                    String.format("UPDATE users SET name = '%s', email = '%s', password = '%s', lastname = '%s', age = %d, balance = %d WHERE id = %d", user.getName(), user.getEmail(), user.getPassword(), user.getLastname(), user.getAge(), user.getBalance(), user.getId())
             );
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -81,6 +81,20 @@ public class UserRepositoryJDBCImpl implements UserRepository {
         try (Statement statement = connection.createStatement()) {
             User user = null;
             ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM users WHERE id = %d", userId));
+            if (resultSet.next()) {
+                user = prepareUser(resultSet);
+            }
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        try (Statement statement = connection.createStatement()) {
+            User user = null;
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM users WHERE email = %s", email));
             if (resultSet.next()) {
                 user = prepareUser(resultSet);
             }
