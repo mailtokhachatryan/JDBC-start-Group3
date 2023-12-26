@@ -1,7 +1,6 @@
 package controller;
 
-import exception.UserAlreadyExistsException;
-import model.User;
+import exception.ValidationException;
 import repository.UserRepository;
 import repository.impl.UserRepositoryJDBCImpl;
 import service.UserService;
@@ -15,29 +14,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 
-public class RegisterServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
+
 
     Connection connection = DataSource.getConnection();
     UserRepository userRepository = new UserRepositoryJDBCImpl(connection);
     UserService userService = new UserServiceImpl(userRepository, connection);
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String name = req.getParameter("name");
-        String lastname = req.getParameter("lastname");
-        String age = req.getParameter("age");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = new User(name, lastname, email, password, Integer.parseInt(age));
         try {
-            userService.register(user);
+            userService.login(email,password);
+            resp.sendRedirect("home.html");
+        }
+        catch (ValidationException e){
             resp.sendRedirect("index.html");
-        } catch (UserAlreadyExistsException e){
-            resp.sendRedirect("register.html");
         }
 
 
-    }
 
+
+    }
 }

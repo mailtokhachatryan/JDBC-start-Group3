@@ -30,12 +30,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(User user) {
+    public void register(User user)  {
         validate(user.getEmail(), user.getPassword());
         User byEmail = userRepository.getByEmail(user.getEmail());
         if (byEmail != null)
             throw new UserAlreadyExistsException();
         userRepository.create(user);
+
     }
 
     @Override
