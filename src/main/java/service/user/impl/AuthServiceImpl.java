@@ -1,20 +1,20 @@
-package service.impl;
+package service.user.impl;
 
 import exception.UserAlreadyExistsException;
 import exception.ValidationException;
 import model.User;
-import repository.UserRepository;
-import service.UserService;
+import repository.user.UserRepository;
+import service.user.AuthService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class UserServiceImpl implements UserService {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final Connection connection;
 
-    public UserServiceImpl(UserRepository userRepository, Connection connection) {
+    public AuthServiceImpl(UserRepository userRepository, Connection connection) {
         this.userRepository = userRepository;
         this.connection = connection;
     }

@@ -1,10 +1,10 @@
-package service;
+package service.user;
 
 import model.User;
 
 import java.sql.SQLException;
 
-public interface UserService {
+public interface AuthService {
 
     void login(String email, String password);
 
