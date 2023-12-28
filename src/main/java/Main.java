@@ -1,8 +1,8 @@
 import model.User;
-import repository.UserRepository;
-import repository.impl.UserRepositoryJDBCImpl;
-import service.UserService;
-import service.impl.UserServiceImpl;
+import repository.user.UserRepository;
+import repository.user.impl.UserRepositoryJDBCImpl;
+import service.user.AuthService;
+import service.user.impl.AuthServiceImpl;
 import util.DataSource;
 
 import java.sql.Connection;
@@ -14,10 +14,10 @@ public class Main {
         Connection connection = DataSource.getConnection();
 
         UserRepository userRepository = new UserRepositoryJDBCImpl(connection);
-        UserService userService = new UserServiceImpl(userRepository, connection);
+        AuthService authService = new AuthServiceImpl(userRepository, connection);
 
 
-        userService.register(
+        authService.register(
                 new User(
                         "Aghasi",
                         "Khachatryan",

@@ -1,7 +1,7 @@
-package repository.impl;
+package repository.user.impl;
 
 import model.User;
-import repository.UserRepository;
+import repository.user.UserRepository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -94,7 +94,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     public User getByEmail(String email) {
         try (Statement statement = connection.createStatement()) {
             User user = null;
-            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM users WHERE email = %s", email));
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM users WHERE email = '%s'", email));
             if (resultSet.next()) {
                 user = prepareUser(resultSet);
             }
