@@ -32,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
         User user = new User(name, lastname, email, password, Integer.parseInt(age));
         try {
             authService.register(user);
-            resp.sendRedirect("index.jsp");
+            resp.sendRedirect("welcome.jsp");
         } catch (UserAlreadyExistsException e){
             resp.sendRedirect("register.jsp");
         }
