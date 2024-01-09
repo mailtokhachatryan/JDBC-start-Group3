@@ -7,13 +7,13 @@ public interface Parameter {
     String REMEMBER_ME = "rememberMe";
     String REMEMBER_COOKIE = "remember";
     String MESSAGE = "message";
-    String ON ="on" ;
+    String ON = "on";
     String ID = "id";
     String NAME = "name";
     String LAST_NAME = "lastname";
     String AGE = "age";
     String TITLE = "title";
-   String DESCRIPTION = "description";
+    String DESCRIPTION = "description";
     String BALANCE = "balance";
     String NOTE_IS_EMPTY = "Not is Empty";
     String LAST_PASSWORD = "lastPassword";

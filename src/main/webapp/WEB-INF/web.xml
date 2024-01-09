@@ -4,9 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-<<<<<<< Updated upstream
-=======
-
     <welcome-file-list>
         <welcome-file>start</welcome-file>
     </welcome-file-list>
@@ -20,8 +17,6 @@
         <servlet-name>start</servlet-name>
         <url-pattern>/start</url-pattern>
     </servlet-mapping>
-
->>>>>>> Stashed changes
     <servlet>
         <servlet-name>register</servlet-name>
         <servlet-class>controller.RegisterServlet</servlet-class>
@@ -31,8 +26,6 @@
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-
-
 
     <servlet>
         <servlet-name>login</servlet-name>
@@ -44,8 +37,6 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
-<<<<<<< Updated upstream
-=======
     <servlet>
         <servlet-name>logout</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
@@ -55,7 +46,6 @@
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-
 
 
     <servlet>
@@ -69,7 +59,6 @@
     </servlet-mapping>
 
 
-
     <servlet>
         <servlet-name>updateNote</servlet-name>
         <servlet-class>controller.UpdateNoteServlet</servlet-class>
@@ -79,8 +68,6 @@
         <servlet-name>updateNote</servlet-name>
         <url-pattern>/updateNote</url-pattern>
     </servlet-mapping>
-
-
 
 
     <servlet>
@@ -93,8 +80,4 @@
         <url-pattern>/changePassword</url-pattern>
     </servlet-mapping>
 
-
-
-
->>>>>>> Stashed changes
 </web-app>

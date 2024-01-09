@@ -18,6 +18,7 @@
     Email: <input name="email"/><br/>
     Password: <input name="password"/><br/>
 
+    Remember me <input type="checkbox" name="rememberMe"><br/>
     <button type="submit"> Login</button>
 </form>
 

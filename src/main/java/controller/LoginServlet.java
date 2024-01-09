@@ -6,14 +6,12 @@ import repository.user.impl.UserRepositoryJDBCImpl;
 import service.user.AuthService;
 import service.user.impl.AuthServiceImpl;
 import util.DataSource;
-<<<<<<< Updated upstream
-=======
 import util.constants.Parameter;
 import util.constants.Path;
 import util.encoder.AESManager;
->>>>>>> Stashed changes
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,15 +33,7 @@ public class LoginServlet extends HttpServlet {
         try {
             authService.login(email, password);
 
-<<<<<<< Updated upstream
-            HttpSession session = req.getSession();
-            session.setAttribute("id", userRepository.getByEmail(email).getId());
-            session.setAttribute("name", userRepository.getByEmail(email).getName());
-
-            resp.sendRedirect("home.jsp");
-        } catch (ValidationException e) {
-            resp.sendRedirect("index.jsp");
-=======
+            String rememberMe = req.getParameter(Parameter.REMEMBER_ME);
             if (rememberMe != null && rememberMe.equalsIgnoreCase(Parameter.ON)) {
                 Cookie cookie = new Cookie(Parameter.REMEMBER_COOKIE, AESManager.encrypt(email + ":" + password));
                 cookie.setMaxAge(360000);
@@ -55,7 +45,6 @@ public class LoginServlet extends HttpServlet {
             resp.sendRedirect(Path.HOME);
         } catch (ValidationException e) {
             resp.sendRedirect(Path.WELCOME);
->>>>>>> Stashed changes
         }
 
 

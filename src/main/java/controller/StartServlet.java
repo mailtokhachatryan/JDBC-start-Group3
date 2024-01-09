@@ -9,7 +9,6 @@ import util.DataSource;
 import util.constants.Parameter;
 import util.constants.Path;
 import util.encoder.AESManager;
-import util.encoder.MD5Encoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -57,6 +56,7 @@ public class StartServlet extends HttpServlet {
         } catch (Exception e) {
             req.setAttribute(Parameter.MESSAGE, e.getMessage());
             req.getRequestDispatcher(Path.WELCOME).forward(req, resp);
+
         }
 
     }

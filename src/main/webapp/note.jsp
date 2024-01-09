@@ -24,7 +24,7 @@
     <%
         if (request.getSession().getAttribute("id") == null) {
             request.setAttribute("message", "Login first!!!");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("welcome.jsp").forward(request, response);
         }
     %>
 
