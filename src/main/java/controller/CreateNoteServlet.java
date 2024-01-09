@@ -4,12 +4,8 @@ import exception.EmptyTextException;
 import model.Note;
 import repository.note.NoteRepository;
 import repository.note.impl.NoteRepositoryJDBCImpl;
-import repository.user.UserRepository;
-import repository.user.impl.UserRepositoryJDBCImpl;
 import service.note.NoteService;
 import service.note.impl.NoteServiceJDBCImpl;
-import service.user.AuthService;
-import service.user.impl.AuthServiceImpl;
 import util.DataSource;
 import util.constants.Parameter;
 import util.constants.Path;
@@ -24,19 +20,19 @@ import java.sql.Connection;
 public class CreateNoteServlet extends HttpServlet {
 
     Connection connection = DataSource.getConnection();
-   NoteRepository noteRepository=new NoteRepositoryJDBCImpl(connection);
-   NoteService noteService=new NoteServiceJDBCImpl(noteRepository,connection);
+    NoteRepository noteRepository = new NoteRepositoryJDBCImpl(connection);
+    NoteService noteService = new NoteServiceJDBCImpl(noteRepository, connection);
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter(Parameter.TITLE);
         String description = req.getParameter(Parameter.DESCRIPTION);
-        Note note=new Note(title,description);
+        Note note = new Note(title, description);
         try {
-            noteService.create(note, Integer.parseInt(req.getSession().getId()));
-        resp.sendRedirect(Path.HOME);
-        }catch (EmptyTextException e) {
+            noteService.create(note, (Integer) req.getSession().getAttribute(Parameter.ID));
+            resp.sendRedirect(Path.NOTE);
+        } catch (EmptyTextException e) {
             resp.sendRedirect(Path.NOTE);
         }
     }

@@ -68,7 +68,7 @@
 <form action="http://localhost:8080/createNote" method="post">
     Title: <input name ="title" ><br>
     Description: <input name ="description" ><br>
-    <button type="submit">Creat Note</button>
+    <button type="submit">Create Note</button>
 </form>
 
 </body>

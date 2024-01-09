@@ -28,8 +28,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
+        String email = req.getParameter(Parameter.EMAIL);
+        String password = req.getParameter(Parameter.PASSWORD);
         try {
             authService.login(email, password);
 
@@ -46,7 +46,5 @@ public class LoginServlet extends HttpServlet {
         } catch (ValidationException e) {
             resp.sendRedirect(Path.WELCOME);
         }
-
-
     }
 }

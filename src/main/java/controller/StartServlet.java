@@ -28,8 +28,10 @@ public class StartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Cookie rememberCookie = CookieUtil.getCookieByName(req.getCookies());
 
+        System.out.println(req.getParameter("param"));
+
+        Cookie rememberCookie = CookieUtil.getCookieByName(req.getCookies(), Parameter.REMEMBER_COOKIE);
 
         try {
             if (rememberCookie != null) {
@@ -56,7 +58,6 @@ public class StartServlet extends HttpServlet {
         } catch (Exception e) {
             req.setAttribute(Parameter.MESSAGE, e.getMessage());
             req.getRequestDispatcher(Path.WELCOME).forward(req, resp);
-
         }
 
     }

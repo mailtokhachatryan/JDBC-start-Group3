@@ -66,7 +66,7 @@ public class NoteRepositoryJDBCImpl implements NoteRepository {
     public List<Note> getAll(int userId) {
         List<Note> list = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM notes");
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM notes WHERE user_id = %d", userId));
             while (resultSet.next()) {
                 list.add(prepareNote(resultSet));
             }
@@ -80,7 +80,7 @@ public class NoteRepositoryJDBCImpl implements NoteRepository {
     public Note getById(int id) {
         try (Statement statement = connection.createStatement()) {
             Note note = null;
-            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM notes WHERE email = '%s'", id));
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM notes WHERE id = '%d'", id));
             if (resultSet.next()) {
                 note = prepareNote(resultSet);
             }

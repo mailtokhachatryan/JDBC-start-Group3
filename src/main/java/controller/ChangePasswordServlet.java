@@ -32,16 +32,21 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPassword = req.getParameter(Parameter.NEW_PASSWORD);
         String repeatPassword = req.getParameter(Parameter.REPEAT_PASSWORD);
         try {
-        if(!lastPassword.equals(newPassword) && newPassword.equals(repeatPassword)){
-            User user=userRepository.getById(Integer.parseInt(req.getSession().getId()));
+            if (lastPassword.equals(newPassword) || !newPassword.equals(repeatPassword)) {
+                throw new ValidationException("Incorrect data");
+            }
+            User user = userRepository.getById((Integer) req.getSession().getAttribute(Parameter.ID));
             user.setPassword(newPassword);
             authService.update(user);
-            CookieUtil.updateCookie(req.getCookies(), AESManager.encrypt(user.getEmail()+user.getPassword()));
+            Cookie cookie = CookieUtil.getCookieByName(req.getCookies(), Parameter.REMEMBER_COOKIE);
+            if (cookie != null) {
+                cookie.setMaxAge(360000);
+                cookie.setValue(AESManager.encrypt(user.getEmail() + user.getPassword()));
+            }
             resp.sendRedirect(Path.HOME);
-        }
-        }
-        catch (ValidationException e){
-            resp.sendRedirect(Path.CHANGE_PASSWORD);
+        } catch (ValidationException e) {
+            req.setAttribute(Parameter.MESSAGE, e.getMessage());
+            req.getRequestDispatcher(Path.CHANGE_PASSWORD).forward(req, resp);
         }
 
     }

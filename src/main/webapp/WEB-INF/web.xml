@@ -17,6 +17,7 @@
         <servlet-name>start</servlet-name>
         <url-pattern>/start</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>register</servlet-name>
         <servlet-class>controller.RegisterServlet</servlet-class>
@@ -68,7 +69,6 @@
         <servlet-name>updateNote</servlet-name>
         <url-pattern>/updateNote</url-pattern>
     </servlet-mapping>
-
 
     <servlet>
         <servlet-name>changePassword</servlet-name>
