@@ -57,11 +57,18 @@
                 <%= note.getDescription()%>
             </td>
         </tr>
+
         <% } %>
 
 
     </table>
 
+</form>
+
+<form action="http://localhost:8080/createNote" method="post">
+    Title: <input name ="title" ><br>
+    Description: <input name ="description" ><br>
+    <button type="submit">Creat Note</button>
 </form>
 
 </body>

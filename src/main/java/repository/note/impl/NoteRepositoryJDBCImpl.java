@@ -2,6 +2,7 @@ package repository.note.impl;
 
 import model.Note;
 import repository.note.NoteRepository;
+import util.constants.Parameter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -91,9 +92,9 @@ public class NoteRepositoryJDBCImpl implements NoteRepository {
 
     private Note prepareNote(ResultSet resultSet) throws SQLException {
         Note note = new Note();
-        note.setId(resultSet.getInt("id"));
-        note.setTitle(resultSet.getString("title"));
-        note.setDescription(resultSet.getString("description"));
+        note.setId(resultSet.getInt(Parameter.ID));
+        note.setTitle(resultSet.getString(Parameter.TITLE));
+        note.setDescription(resultSet.getString(Parameter.DESCRIPTION));
         return note;
     }
 

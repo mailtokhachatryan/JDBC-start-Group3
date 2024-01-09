@@ -1,9 +1,11 @@
 package service.note.impl;
 
+import exception.EmptyTextException;
 import lombok.RequiredArgsConstructor;
 import model.Note;
 import repository.note.NoteRepository;
 import service.note.NoteService;
+import util.constants.Parameter;
 
 import java.sql.Connection;
 import java.util.List;
@@ -16,16 +18,19 @@ public class NoteServiceJDBCImpl implements NoteService {
 
     @Override
     public void create(Note note, int userId) {
-
+        validateNote(note.getTitle(),note.getDescription());
+        noteRepository.create(note, userId);
     }
 
     @Override
     public void update(Note note) {
-
+        validateNote(note.getTitle(),note.getDescription());
+        noteRepository.update(note);
     }
 
     @Override
     public void delete(int id) {
+        noteRepository.delete(id);
 
     }
 
@@ -36,6 +41,14 @@ public class NoteServiceJDBCImpl implements NoteService {
 
     @Override
     public Note getById(int userId) {
-        return null;
+        return noteRepository.getById(userId);
+    }
+
+
+    private void validateNote(String title,String description) {
+        if (!title.matches("[A-Za-z]+")
+                || !description.matches("[A-Za-z]+"))
+            throw new EmptyTextException(Parameter.NOTE_IS_EMPTY);
+
     }
 }
