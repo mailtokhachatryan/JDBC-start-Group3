@@ -2,6 +2,7 @@ package repository.user.impl;
 
 import model.User;
 import repository.user.UserRepository;
+import util.constants.Parameter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -106,13 +107,13 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     private User prepareUser(ResultSet resultSet) throws SQLException {
         User user = new User();
-        user.setId(resultSet.getInt("id"));
-        user.setName(resultSet.getString("name"));
-        user.setEmail(resultSet.getString("email"));
-        user.setPassword(resultSet.getString("password"));
-        user.setLastname(resultSet.getString("lastname"));
-        user.setAge(resultSet.getInt("age"));
-        user.setBalance(resultSet.getInt("balance"));
+        user.setId(resultSet.getInt(Parameter.ID));
+        user.setName(resultSet.getString(Parameter.NAME));
+        user.setEmail(resultSet.getString(Parameter.EMAIL));
+        user.setPassword(resultSet.getString(Parameter.PASSWORD));
+        user.setLastname(resultSet.getString(Parameter.LAST_NAME));
+        user.setAge(resultSet.getInt(Parameter.AGE));
+        user.setBalance(resultSet.getInt(Parameter.BALANCE));
         return user;
     }
 

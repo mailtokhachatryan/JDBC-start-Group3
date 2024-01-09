@@ -29,6 +29,15 @@ public class AuthServiceImpl implements AuthService {
             throw new ValidationException("Email or Password not valid");
     }
 
+
+    @Override
+    public void update(User user) {
+        validate(user.getEmail(),user.getPassword());
+        userRepository.update(user);
+    }
+
+
+
     @Override
     public void register(User user)  {
         validate(user.getEmail(), user.getPassword());

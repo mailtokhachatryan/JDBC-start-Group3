@@ -1,6 +1,8 @@
 package controller;
 
-public class UpdateNoteServlet {
+import javax.servlet.http.HttpServlet;
+
+public class UpdateNoteServlet extends HttpServlet {
 
 
 }

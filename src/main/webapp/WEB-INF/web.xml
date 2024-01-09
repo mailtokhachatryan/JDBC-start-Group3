@@ -48,4 +48,36 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>creatNote</servlet-name>
+        <servlet-class>controller.CreateNoteServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>creatNote</servlet-name>
+        <url-pattern>/createNote</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>updateNote</servlet-name>
+        <servlet-class>controller.UpdateNoteServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateNote</servlet-name>
+        <url-pattern>/updateNote</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>changePassword</servlet-name>
+        <servlet-class>controller.ChangePasswordServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>changePassword</servlet-name>
+        <url-pattern>/changePassword</url-pattern>
+    </servlet-mapping>
+
 </web-app>

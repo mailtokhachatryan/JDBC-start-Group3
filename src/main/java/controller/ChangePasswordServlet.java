@@ -1,10 +1,12 @@
 package controller;
 
 import exception.ValidationException;
+import model.User;
 import repository.user.UserRepository;
 import repository.user.impl.UserRepositoryJDBCImpl;
 import service.user.AuthService;
 import service.user.impl.AuthServiceImpl;
+import util.CookieUtil;
 import util.DataSource;
 import util.constants.Parameter;
 import util.constants.Path;
@@ -15,12 +17,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 
-public class LoginServlet extends HttpServlet {
-
+public class ChangePasswordServlet extends HttpServlet {
 
     Connection connection = DataSource.getConnection();
     UserRepository userRepository = new UserRepositoryJDBCImpl(connection);
@@ -28,23 +28,27 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter(Parameter.EMAIL);
-        String password = req.getParameter(Parameter.PASSWORD);
+        String lastPassword = req.getParameter(Parameter.LAST_PASSWORD);
+        String newPassword = req.getParameter(Parameter.NEW_PASSWORD);
+        String repeatPassword = req.getParameter(Parameter.REPEAT_PASSWORD);
         try {
-            authService.login(email, password);
-
-            String rememberMe = req.getParameter(Parameter.REMEMBER_ME);
-            if (rememberMe != null && rememberMe.equalsIgnoreCase(Parameter.ON)) {
-                Cookie cookie = new Cookie(Parameter.REMEMBER_COOKIE, AESManager.encrypt(email + ":" + password));
-                cookie.setMaxAge(360000);
-                resp.addCookie(cookie);
+            if (lastPassword.equals(newPassword) || !newPassword.equals(repeatPassword)) {
+                throw new ValidationException("Incorrect data");
             }
-            HttpSession session = req.getSession();
-            session.setAttribute(Parameter.ID, userRepository.getByEmail(email).getId());
-            session.setAttribute(Parameter.NAME, userRepository.getByEmail(email).getName());
+            User user = userRepository.getById((Integer) req.getSession().getAttribute(Parameter.ID));
+            user.setPassword(newPassword);
+            authService.update(user);
+            Cookie cookie = CookieUtil.getCookieByName(req.getCookies(), Parameter.REMEMBER_COOKIE);
+            if (cookie != null) {
+                cookie.setMaxAge(360000);
+                cookie.setValue(AESManager.encrypt(user.getEmail() + user.getPassword()));
+            }
             resp.sendRedirect(Path.HOME);
         } catch (ValidationException e) {
-            resp.sendRedirect(Path.WELCOME);
+            req.setAttribute(Parameter.MESSAGE, e.getMessage());
+            req.getRequestDispatcher(Path.CHANGE_PASSWORD).forward(req, resp);
         }
+
     }
+
 }

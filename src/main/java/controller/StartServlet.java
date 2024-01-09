@@ -7,8 +7,8 @@ import service.user.impl.AuthServiceImpl;
 import util.CookieUtil;
 import util.DataSource;
 import util.constants.Parameter;
+import util.constants.Path;
 import util.encoder.AESManager;
-import util.encoder.MD5Encoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -28,8 +28,10 @@ public class StartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Cookie rememberCookie = CookieUtil.getCookieByName(req.getCookies());
 
+        System.out.println(req.getParameter("param"));
+
+        Cookie rememberCookie = CookieUtil.getCookieByName(req.getCookies(), Parameter.REMEMBER_COOKIE);
 
         try {
             if (rememberCookie != null) {
@@ -46,16 +48,16 @@ public class StartServlet extends HttpServlet {
                 resp.addCookie(cookie);
 
                 HttpSession session = req.getSession();
-                session.setAttribute("id", userRepository.getByEmail(email).getId());
-                session.setAttribute("name", userRepository.getByEmail(email).getName());
+                session.setAttribute(Parameter.ID, userRepository.getByEmail(email).getId());
+                session.setAttribute(Parameter.NAME, userRepository.getByEmail(email).getName());
 
-                req.getRequestDispatcher("home.jsp").forward(req, resp);
+                req.getRequestDispatcher(Path.HOME).forward(req, resp);
             } else {
-                resp.sendRedirect("welcome.jsp");
+                resp.sendRedirect(Path.WELCOME);
             }
         } catch (Exception e) {
             req.setAttribute(Parameter.MESSAGE, e.getMessage());
-            req.getRequestDispatcher("welcome.jsp").forward(req, resp);
+            req.getRequestDispatcher(Path.WELCOME).forward(req, resp);
         }
 
     }
