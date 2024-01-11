@@ -58,6 +58,16 @@
         <servlet-name>creatNote</servlet-name>
         <url-pattern>/createNote</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>controller.filter.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/secure/*</url-pattern>
+    </filter-mapping>
 
 
     <servlet>
