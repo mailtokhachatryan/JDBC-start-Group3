@@ -22,13 +22,6 @@
     <h1>Notes</h1>
 
     <%
-        if (request.getSession().getAttribute("id") == null) {
-            request.setAttribute("message", "Login first!!!");
-            request.getRequestDispatcher("welcome.jsp").forward(request, response);
-        }
-    %>
-
-    <%
         Connection connection = DataSource.getConnection();
         NoteService noteService = new NoteServiceJDBCImpl(new NoteRepositoryJDBCImpl(connection), connection);
 
@@ -66,8 +59,8 @@
 </form>
 
 <form action="http://localhost:8080/createNote" method="post">
-    Title: <input name ="title" ><br>
-    Description: <input name ="description" ><br>
+    Title: <input name="title"><br>
+    Description: <input name="description"><br>
     <button type="submit">Create Note</button>
 </form>
 

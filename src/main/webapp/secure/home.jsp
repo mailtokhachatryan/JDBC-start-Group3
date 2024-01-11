@@ -9,14 +9,6 @@
 </head>
 <body>
 
-<%
-
-    if (request.getSession().getAttribute(Parameter.ID) == null) {
-        request.setAttribute(Parameter.MESSAGE, Massage.LOGIN_FIRST);
-        request.getRequestDispatcher(Path.WELCOME).forward(request, response);
-    }
-%>
-
 <h1>Welcome to home page dear <%=request.getSession().getAttribute(Parameter.NAME)%>
 </h1>
 

@@ -2,7 +2,7 @@ package controller;
 
 import exception.ValidationException;
 import repository.user.UserRepository;
-import repository.user.impl.UserRepositoryJDBCImpl;
+import repository.user.impl.UserRepositoryJPAImpl;
 import service.user.AuthService;
 import service.user.impl.AuthServiceImpl;
 import util.DataSource;
@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
 
 
     Connection connection = DataSource.getConnection();
-    UserRepository userRepository = new UserRepositoryJDBCImpl(connection);
+    UserRepository userRepository = new UserRepositoryJPAImpl();
     AuthService authService = new AuthServiceImpl(userRepository, connection);
 
     @Override
@@ -44,7 +44,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(Parameter.NAME, userRepository.getByEmail(email).getName());
             resp.sendRedirect(Path.HOME);
         } catch (ValidationException e) {
-            resp.sendRedirect(Path.WELCOME);
+            req.setAttribute(Parameter.MESSAGE, e.getMessage());
+            req.getRequestDispatcher(Path.WELCOME).forward(req, resp);
         }
     }
 }
