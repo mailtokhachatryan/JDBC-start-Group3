@@ -80,7 +80,7 @@ public class NoteRepositoryJDBCImpl implements NoteRepository {
     public Note getById(int id) {
         try (Statement statement = connection.createStatement()) {
             Note note = null;
-            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM notes WHERE id = '%d'", id));
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM notes WHERE id = %d", id));
             if (resultSet.next()) {
                 note = prepareNote(resultSet);
             }

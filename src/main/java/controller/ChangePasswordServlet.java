@@ -32,12 +32,8 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPassword = req.getParameter(Parameter.NEW_PASSWORD);
         String repeatPassword = req.getParameter(Parameter.REPEAT_PASSWORD);
         try {
-            if (lastPassword.equals(newPassword) || !newPassword.equals(repeatPassword)) {
-                throw new ValidationException("Incorrect data");
-            }
+            authService.changePassword(lastPassword,newPassword,repeatPassword,(Integer) req.getSession().getAttribute(Parameter.ID));
             User user = userRepository.getById((Integer) req.getSession().getAttribute(Parameter.ID));
-            user.setPassword(newPassword);
-            authService.update(user);
             Cookie cookie = CookieUtil.getCookieByName(req.getCookies(), Parameter.REMEMBER_COOKIE);
             if (cookie != null) {
                 cookie.setMaxAge(360000);

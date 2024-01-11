@@ -12,5 +12,7 @@ public interface AuthService {
 
     void register(User user);
 
+    void changePassword(String lastPassword, String newPassword, String repeatPassword, int id);
+
     void transfer(int fromUserId, int toUserId, int amount) throws SQLException;
 }

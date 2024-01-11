@@ -49,6 +49,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public void changePassword(String lastPassword, String newPassword, String repeatPassword, int id){
+        if (lastPassword.equals(newPassword) || !newPassword.equals(repeatPassword)) {
+            throw new ValidationException("Incorrect data");
+        }
+        User user = userRepository.getById(id);
+        user.setPassword(newPassword);
+        userRepository.update(user);
+    }
+
+    @Override
     public void transfer(int fromUserId, int toUserId, int amount) throws SQLException {
         connection.setAutoCommit(false);
         try {
