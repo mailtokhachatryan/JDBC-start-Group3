@@ -70,15 +70,6 @@
     </filter-mapping>
 
 
-    <servlet>
-        <servlet-name>updateNote</servlet-name>
-        <servlet-class>controller.UpdateNoteServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>updateNote</servlet-name>
-        <url-pattern>/updateNote</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>changePassword</servlet-name>

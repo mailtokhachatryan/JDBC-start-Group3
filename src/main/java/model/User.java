@@ -3,19 +3,15 @@ package model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import util.constants.Parameter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Setter
 @Getter
 @ToString
 @Entity
-@Table(name = "users")
+@Table(name = Parameter.USERS)
 public class User {
 
     @Id

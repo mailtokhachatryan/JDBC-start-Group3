@@ -14,17 +14,17 @@ import java.util.List;
 public class NoteServiceJDBCImpl implements NoteService {
 
     private final NoteRepository noteRepository;
-    private final Connection connection;
 
     @Override
     public void create(Note note, int userId) {
-        validateNote(note.getTitle(),note.getDescription());
-        noteRepository.create(note, userId);
+        validateNote(note.getTitle(), note.getDescription());
+        note.setUserId(userId);
+        noteRepository.create(note);
     }
 
     @Override
     public void update(Note note) {
-        validateNote(note.getTitle(),note.getDescription());
+        validateNote(note.getTitle(), note.getDescription());
         noteRepository.update(note);
     }
 
@@ -45,7 +45,7 @@ public class NoteServiceJDBCImpl implements NoteService {
     }
 
 
-    private void validateNote(String title,String description) {
+    private void validateNote(String title, String description) {
         if (!title.matches("[A-Za-z]+")
                 || !description.matches("[A-Za-z]+"))
             throw new EmptyTextException(Parameter.NOTE_IS_EMPTY);

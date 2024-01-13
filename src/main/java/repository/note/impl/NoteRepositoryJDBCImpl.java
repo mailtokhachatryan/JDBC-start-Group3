@@ -34,9 +34,9 @@ public class NoteRepositoryJDBCImpl implements NoteRepository {
 
 
     @Override
-    public void create(Note note, int userId) {
+    public void create(Note note) {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(String.format("INSERT INTO notes (title, description, user_id) VALUES ('%s','%s', %d)", note.getTitle(), note.getDescription(), userId));
+            statement.executeUpdate(String.format("INSERT INTO notes (title, description, user_id) VALUES ('%s','%s', %d)", note.getTitle(), note.getDescription(), note.getUserId()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -80,7 +80,7 @@ public class NoteRepositoryJDBCImpl implements NoteRepository {
     public Note getById(int id) {
         try (Statement statement = connection.createStatement()) {
             Note note = null;
-            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM notes WHERE id = '%d'", id));
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM notes WHERE id = %d", id));
             if (resultSet.next()) {
                 note = prepareNote(resultSet);
             }

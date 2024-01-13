@@ -6,6 +6,8 @@
 <%@ page import="repository.note.impl.NoteRepositoryJDBCImpl" %>
 <%@ page import="model.Note" %>
 <%@ page import="java.util.List" %>
+<%@ page import="repository.note.impl.NoteRepositoryJPAImpl" %>
+<%@ page import="util.constants.Parameter" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,10 +24,9 @@
     <h1>Notes</h1>
 
     <%
-        Connection connection = DataSource.getConnection();
-        NoteService noteService = new NoteServiceJDBCImpl(new NoteRepositoryJDBCImpl(connection), connection);
-
-        List<Note> notes = noteService.getAll((Integer) request.getSession().getAttribute("id"));
+        NoteRepository noteRepositoryJPA = new NoteRepositoryJPAImpl();
+        NoteService noteService = new NoteServiceJDBCImpl(noteRepositoryJPA);
+        List<Note> notes = noteService.getAll((Integer) request.getSession().getAttribute(Parameter.ID));
 
     %>
 

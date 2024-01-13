@@ -1,5 +1,7 @@
 package util.constants;
 
+import org.hibernate.query.QueryParameter;
+
 public interface Parameter {
 
     String EMAIL = "email";
@@ -19,4 +21,7 @@ public interface Parameter {
     String LAST_PASSWORD = "lastPassword";
     String NEW_PASSWORD = "newPassword";
     String REPEAT_PASSWORD = "repeatPassword";
+    String USERS = "users";
+    String NOTES = "notes";
+    String USER_ID = "userId";
 }
