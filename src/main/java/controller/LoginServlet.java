@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 
     Connection connection = DataSource.getConnection();
     UserRepository userRepository = new UserRepositoryJPAImpl();
-    AuthService authService = new AuthServiceImpl(userRepository, connection);
+    AuthService authService = new AuthServiceImpl(userRepository);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
