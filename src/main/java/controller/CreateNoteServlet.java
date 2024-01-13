@@ -22,7 +22,7 @@ public class CreateNoteServlet extends HttpServlet {
 
     Connection connection = DataSource.getConnection();
     NoteRepository noteRepository = new NoteRepositoryJPAImpl();
-    NoteService noteService = new NoteServiceJDBCImpl(noteRepository, connection);
+    NoteService noteService = new NoteServiceJDBCImpl(noteRepository);
 
 
     @Override

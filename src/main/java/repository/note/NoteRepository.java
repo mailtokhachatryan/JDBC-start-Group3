@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface NoteRepository {
 
-    void create(Note note,int userId);
+    void create(Note note);
 
     void update(Note note);
 

@@ -34,8 +34,7 @@ public class HibernateDataSource {
 
 
                 configuration.addAnnotatedClass(User.class);
-//                configuration.addAnnotatedClass(Note.class);
-//                configuration.addAnnotatedClass(Order.class);
+                configuration.addAnnotatedClass(Note.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

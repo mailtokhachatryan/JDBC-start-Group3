@@ -24,10 +24,8 @@
     <h1>Notes</h1>
 
     <%
-        Connection connection = DataSource.getConnection();
         NoteRepository noteRepositoryJPA = new NoteRepositoryJPAImpl();
-        NoteService noteService = new NoteServiceJDBCImpl(noteRepositoryJPA, connection);
-
+        NoteService noteService = new NoteServiceJDBCImpl(noteRepositoryJPA);
         List<Note> notes = noteService.getAll((Integer) request.getSession().getAttribute(Parameter.ID));
 
     %>

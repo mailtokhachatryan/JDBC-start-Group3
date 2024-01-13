@@ -22,6 +22,6 @@ public interface Parameter {
     String NEW_PASSWORD = "newPassword";
     String REPEAT_PASSWORD = "repeatPassword";
     String USERS = "users";
-    String NOTES = "Notes";
+    String NOTES = "notes";
     String USER_ID = "userId";
 }

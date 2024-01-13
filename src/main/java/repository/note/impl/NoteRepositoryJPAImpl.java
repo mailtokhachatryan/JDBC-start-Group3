@@ -17,7 +17,7 @@ public class NoteRepositoryJPAImpl implements NoteRepository {
     private SessionFactory sessionFactory = HibernateDataSource.getSessionFactory();
 
     @Override
-    public void create(Note note, int userId) {
+    public void create(Note note) {
         Session session = sessionFactory.openSession();
         session.save(note);
         session.close();
@@ -43,7 +43,7 @@ public class NoteRepositoryJPAImpl implements NoteRepository {
     @Override
     public List<Note> getAll(int userId) {
         Session session = sessionFactory.openSession();
-        NativeQuery<Note> nativeQuery = session.createNativeQuery("SELECT * FROM notes where user_id=: userId", Note.class);
+        NativeQuery<Note> nativeQuery = session.createNativeQuery("SELECT * FROM notes where user_id=:userId", Note.class);
         List<Note> listNote = nativeQuery.setParameter("userId", userId).getResultList();
         session.close();
         return listNote;
