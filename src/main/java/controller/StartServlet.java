@@ -1,7 +1,7 @@
 package controller;
 
 import repository.user.UserRepository;
-import repository.user.impl.UserRepositoryJDBCImpl;
+import repository.user.impl.UserRepositoryJPAImpl;
 import service.user.AuthService;
 import service.user.impl.AuthServiceImpl;
 import util.CookieUtil;
@@ -22,7 +22,7 @@ import java.sql.Connection;
 public class StartServlet extends HttpServlet {
 
     Connection connection = DataSource.getConnection();
-    UserRepository userRepository = new UserRepositoryJDBCImpl(connection);
+    UserRepository userRepository = new UserRepositoryJPAImpl();
     AuthService authService = new AuthServiceImpl(userRepository, connection);
 
     @Override

@@ -16,14 +16,6 @@
 
 <h3><%= request.getAttribute("message") != null ? request.getAttribute("message") : "" %>
 
-
-<%
-    if (request.getSession().getAttribute(Parameter.ID) == null) {
-        request.setAttribute(Parameter.MESSAGE, Massage.LOGIN_FIRST);
-        request.getRequestDispatcher(Path.WELCOME).forward(request, response);
-    }
-%>
-
 <form action="http://localhost:8080/changePassword" method="post">
     Last Password:  <input type="password" name="lastPassword"/><br/>
     New Password: <input type="password" name="newPassword"/><br/>
