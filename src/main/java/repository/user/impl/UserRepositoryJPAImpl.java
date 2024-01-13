@@ -3,6 +3,7 @@ package repository.user.impl;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import repository.user.UserRepository;
 import util.HibernateDataSource;
@@ -18,22 +19,40 @@ public class UserRepositoryJPAImpl implements UserRepository {
     @Override
     public void create(User user) {
         Session session = sessionFactory.openSession();
-        session.save(user);
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(user);
+            transaction.commit();
+        } catch (Throwable throwable) {
+            transaction.rollback();
+        }
         session.close();
     }
 
     @Override
     public void update(User user) {
         Session session = sessionFactory.openSession();
-        session.update(user);
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(user);
+            transaction.commit();
+        } catch (Throwable throwable) {
+            transaction.rollback();
+        }
         session.close();
     }
 
     @Override
     public void delete(int id) {
         Session session = sessionFactory.openSession();
-        User user = getById(id);
-        session.delete(user);
+        Transaction transaction = session.beginTransaction();
+        try {
+            User user = getById(id);
+            session.delete(user);
+            transaction.commit();
+        } catch (Throwable throwable) {
+            transaction.rollback();
+        }
         session.close();
     }
 

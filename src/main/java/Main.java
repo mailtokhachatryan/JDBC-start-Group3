@@ -25,7 +25,11 @@ public class Main {
 
         UserRepository userRepository = new UserRepositoryJPAImpl();
 
-        userRepository.create(new User("Aghasi","Khachatryan","mailtokhachatryan96@gmail.com","password",27));
+//        userRepository.create(new User("Aghasi","Khachatryan","mailtokhachatradyan96@gmail.com","password",27));
 
+        userRepository.delete(3);
+
+
+        HibernateDataSource.getSessionFactory().close();
     }
 }

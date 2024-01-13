@@ -12,5 +12,4 @@ public interface AuthService {
 
     void register(User user);
 
-    void transfer(int fromUserId, int toUserId, int amount) throws SQLException;
 }
