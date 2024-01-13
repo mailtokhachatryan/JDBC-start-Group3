@@ -1,5 +1,6 @@
 package util;
 
+import model.Note;
 import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -33,7 +34,7 @@ public class HibernateDataSource {
 
 
                 configuration.addAnnotatedClass(User.class);
-//                configuration.addAnnotatedClass(Product.class);
+//                configuration.addAnnotatedClass(Note.class);
 //                configuration.addAnnotatedClass(Order.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

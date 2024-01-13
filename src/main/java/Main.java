@@ -18,14 +18,8 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args)  {
-//        Connection connection = DataSource.getConnection();
-//        NoteRepository noteRepository=new NoteRepositoryJDBCImpl(connection);
-//        NoteServiceJDBCImpl noteService=new NoteServiceJDBCImpl(noteRepository,connection);
 
 
-        UserRepository userRepository = new UserRepositoryJPAImpl();
-
-        userRepository.create(new User("Aghasi","Khachatryan","mailtokhachatryan96@gmail.com","password",27));
 
     }
 }
