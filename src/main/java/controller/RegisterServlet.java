@@ -3,11 +3,9 @@ package controller;
 import exception.UserAlreadyExistsException;
 import model.User;
 import repository.user.UserRepository;
-import repository.user.impl.UserRepositoryJDBCImpl;
 import repository.user.impl.UserRepositoryJPAImpl;
 import service.user.AuthService;
 import service.user.impl.AuthServiceImpl;
-import util.DataSource;
 import util.constants.Parameter;
 import util.constants.Path;
 
@@ -16,11 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 
 public class RegisterServlet extends HttpServlet {
 
-    Connection connection = DataSource.getConnection();
     UserRepository userRepository = new UserRepositoryJPAImpl();
     AuthService authService = new AuthServiceImpl(userRepository);
 

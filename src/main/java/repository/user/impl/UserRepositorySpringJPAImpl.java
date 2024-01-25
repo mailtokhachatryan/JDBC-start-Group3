@@ -12,13 +12,9 @@ import util.constants.Parameter;
 import javax.persistence.NoResultException;
 import java.util.List;
 
-public class UserRepositoryJPAImpl implements UserRepository {
+public class UserRepositorySpringJPAImpl implements UserRepository {
 
     private SessionFactory sessionFactory = HibernateDataSource.getSessionFactory();
-
-    public void initialization(){
-        System.out.println("repo Init");
-    }
 
     @Override
     public void create(User user) {

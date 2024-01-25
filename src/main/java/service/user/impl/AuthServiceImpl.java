@@ -11,8 +11,15 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
 
     public AuthServiceImpl(UserRepository userRepository) {
+
+        System.out.println("auth service Constructor");
         this.userRepository = userRepository;
     }
+
+    public void initialization(){
+        System.out.println("auth service Init");
+    }
+
 
     @Override
     public void login(String email, String password) {

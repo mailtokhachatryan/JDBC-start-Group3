@@ -3,11 +3,9 @@ package controller;
 import exception.EmptyTextException;
 import model.Note;
 import repository.note.NoteRepository;
-import repository.note.impl.NoteRepositoryJDBCImpl;
 import repository.note.impl.NoteRepositoryJPAImpl;
 import service.note.NoteService;
 import service.note.impl.NoteServiceJDBCImpl;
-import util.DataSource;
 import util.constants.Parameter;
 import util.constants.Path;
 
@@ -16,11 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 
 public class CreateNoteServlet extends HttpServlet {
 
-    Connection connection = DataSource.getConnection();
     NoteRepository noteRepository = new NoteRepositoryJPAImpl();
     NoteService noteService = new NoteServiceJDBCImpl(noteRepository);
 

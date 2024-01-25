@@ -6,30 +6,19 @@ import java.sql.SQLException;
 
 public class DataSource {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/jdbc";
-    private static final String USER_NAME = "postgres";
-    private static final String PASSWORD = "postgres";
-    private static final String DRIVER = "org.postgresql.Driver";
     private static Connection connection;
 
-
-    private DataSource() {
-
+    public DataSource(String url, String username, String password, String driver) {
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Connected to the PostgreSQL server successfully.");
     }
 
-    public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                Class.forName(DRIVER);
-                connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Connected to the PostgreSQL server successfully.");
-        }
-
+    public Connection getConnection() {
         return connection;
     }
-
-
 }
